@@ -1,9 +1,21 @@
 #ifndef COLOR_H
+
 #define COLOR_H
 
-#define ERROR_MSG(str) (string)"\x1b[31;1m"+str+"\x1b[0m"
-#define WARNING_MSG(str) (string)"\x1b[33;1m"+str+"\x1b[0m"
-#define BOLD_MSG(str) (string)"\x1b[1m"+str+"\x1b[0m"
-#define GOOD_MSG(str) (string)"\x1b[32;1m"+str+"\x1b[0m"
+#if (defined(_WIN32) || defined(_WIN64))
+
+#define ERROR_MSG(str) str
+#define WARNING_MSG(str) str
+#define BOLD_MSG(str) str
+#define GOOD_MSG(str) str
+
+#endif
+
+#else
+
+#define ERROR_MSG(str) (string)"\033[31;1m"+str+"\033[0m"
+#define WARNING_MSG(str) (string)"\033[33;1m"+str+"\033[0m"
+#define BOLD_MSG(str) (string)"\033[1m"+str+"\033[0m"
+#define GOOD_MSG(str) (string)"\033[32;1m"+str+"\033[0m"
 
 #endif
