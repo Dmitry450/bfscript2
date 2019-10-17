@@ -180,7 +180,7 @@ int main(int argc, char** argv)
                 tmp.push_back(tokens[j]);
             }
         } // Deleting void strings
-        for (auto s: tmp)
+        /*for (auto s: tmp)
         {
             cout<<s<<endl; // Nice debug
         }//*/
