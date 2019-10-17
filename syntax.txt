@@ -1,16 +1,16 @@
-Синтаксис языка состоит из следующих команд:
+The language syntax consists of the following commands:
 
-setchar char c - устанавливает значение в текущей ячейке на c
-walk int n - перейти на n ячеек
-change int v - изменить значение в текущей ячейке на v
-mov int n - переместить значение текущей ячейки на n клеток
-copy int n int t - копировать значение текущей ячейки в ячейку через n клеток с использованием буффера,
-расположенного на t клеток от текущей
-print unsigned int n - вывести значения ячеек от текущей до следующей через n клеток
-split string v - разбить строку v на символы и распределить их по следующим ячейкам
-alias name value - создать "переменную" с именем name и значением value
-@name - получить значение из переменной с именем name
+setchar c - sets the value in the current cell to c
+walk n - go to n cells
+change v - change the value in the current cell to v
+mov n - move the value of the current cell to n cells
+copy n t - copy the value of the current cell to the cell through n cells using a buffer,
+located on t cells from the current
+print int n - print cell values ​​from the current to the next through n cells
+split v - split string v into characters and distribute them in the following cells
+alias name value - create a "variable" with the name name and value
+$ name - get the value from a variable named name
 
-Каждый вызов команды заканчивается точкой с запятой.
+Each command invocation ends with a semicolon.
 
-На самом деле это не совсем переменные, так как они используются только во время трансляции
+In fact, these are not exactly variables, since they are used only during translation
