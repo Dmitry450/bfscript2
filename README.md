@@ -1,31 +1,31 @@
 # bfscript2
 The language syntax consists of the following commands:
 
-setchar c - sets the value in the current cell to c 
+<code>setchar c</code> - sets the value in the current cell to c 
 
-walk n - go to n cells
+<code>walk n</code> - go to n cells
 
-change v - change the value in the current cell to v (integer)
+<code>change v</code> - change the value in the current cell to v (integer)
 
-mov n - move the value of the current cell to n cells
+<code>mov n</code> - move the value of the current cell to n cells
 
-copy n t - copy the value of the current cell to the cell located n cells from the current
+<code>copy n t</code> - copy the value of the current cell to the cell located n cells from the current
 
 using a buffer located across t cells from the current
 
-print n - print cell values from the current to the next through n cells
+<code>print n</code> - print cell values from the current to the next through n cells
 
-split v - split string v into characters and distribute them in the following cells
+<code>split v</code> - split string v into characters and distribute them in the following cells
 
-alias name value - create an alias with the name 'name' and the value 'value'
+<code>alias name value</code> - create an alias with the name 'name' and the value 'value'
 
-$ name - get the value from the alias name
+<code>$name</code> - get the value from the alias name
 
-pointer name n - create a pointer to cell n
+<code>pointer name n</code> - create a pointer to cell n
 
-&name = c - set the value of the cell at address name to 'c'
+<code>&name = c</code> - set the value of the cell at address name to 'c'
 
-\# - comment
+<code>\#</code> - comment
 
 Each command invocation ends with a semicolon.
 
