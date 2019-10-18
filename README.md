@@ -33,6 +33,7 @@ Please note that there are no name conflicts between pointers and aliases, as th
 
 For example:
 <code>
+  
 alias hw "Hello, World!"; # Create hw alias
   
 pointer hw 1; # Create hw pointer
