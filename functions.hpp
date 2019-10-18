@@ -7,6 +7,7 @@ using namespace std;
 string    setchar    (char c);
 string    walk       (int k);
 string    change     (int count);
+string    go_to      (int current_cell, int where);
 
 string    mov        (int whereto);
 string    copy       (int whereto, int buffer);

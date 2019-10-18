@@ -2,6 +2,7 @@
 #include "functions.hpp"
 #include "color.hpp"
 #include "code_generator.hpp"
+#include "pointer.hpp"
 
 using namespace std;
 
@@ -119,6 +120,7 @@ int main(int argc, char** argv)
         vector<string> tokens;
         bool funcdef = false;
         int func_depth = 0;
+        map<string, Pointer*> pointers;
         map<string, string> aliases;
         string current_operator = "";
 
@@ -142,6 +144,18 @@ int main(int argc, char** argv)
                 if (c == '$' && !in_string)
                 {
                     tokens.push_back((string)"loadalias");
+                    ident = "";
+                    continue;
+                }
+                if (c == '=' && !in_string)
+                {
+                    tokens.push_back((string)"assigment");
+                    ident = "";
+                    continue;
+                }
+                if (c == '&' && !in_string)
+                {
+                    tokens.push_back((string)"bypointer");
                     ident = "";
                     continue;
                 }
@@ -191,12 +205,11 @@ int main(int argc, char** argv)
         bool error = false;
         for (i; i < tokens.size(); i++)
         {
-            bfcode += generate(tokens, i, aliases, line_num, error);
+            bfcode += generate(tokens, i, aliases, pointers, line_num, current_cell, error);
             if (error)
             {
                 return -3;
             }
-            ++i;
         }
         cout<<BOLD_MSG("bfscript: code generator: ")<<GOOD_MSG("code generating finished")<<endl;
         ofstream ofile(flags.ofile);

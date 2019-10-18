@@ -1,0 +1,26 @@
+The language syntax consists of the following commands:
+
+setchar c - sets the value in the current cell to c
+walk n - go to n cells
+change v - change the value in the current cell to v (integer)
+mov n - move the value of the current cell to n cells
+copy n t - copy the value of the current cell to the cell located n cells from the current
+using a buffer located across t cells from the current
+print n - print cell values ​​from the current to the next through n cells
+split v - split string v into characters and distribute them in the following cells
+alias name value - create an alias with the name 'name' and the value 'value'
+$ name - get the value from the alias name
+pointer name n - create a pointer to cell n
+& name = c - set the value of the cell at address name to 'c'
+# - comment
+
+Each command invocation ends with a semicolon.
+
+Please note that there are no name conflicts between pointers and aliases, as they
+stored differently
+
+For example:
+alias hw "Hello, World!"; # Create hw alias
+pointer hw 1; # Create hw pointer
+split $ hw; # Split the string stored in ALIAS hw
+& hw = c; # Set the value of 'c' to the cell BY ADDRESS hw

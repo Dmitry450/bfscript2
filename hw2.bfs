@@ -1,4 +1,7 @@
+pointer lol 2;
 alias hw "Hello, World!";
 split $hw;
-walk -13;
 print 13;
+&lol = c;
+walk 3;
+print 0;

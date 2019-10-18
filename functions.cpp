@@ -52,6 +52,27 @@ string change(int count)
     return result;
 }
 
+string go_to(int current_cell, int where)
+{
+    string result = "";
+    if (current_cell < where)
+    {
+        for (int i = current_cell; i <= where; i++)
+        {
+            result += ">";
+        }
+    }
+    if (current_cell > where)
+    {
+        for (int i = current_cell; i >= where; i--)
+        {
+            result += "<";
+        }
+    }
+    result += "\n";
+    return result;
+}
+
 string mov(int whereto)
 {
     string result = "";
@@ -83,22 +104,28 @@ string copy(int whereto, int buffer)
     result += "]";
     result += walk(buffer);
     result += mov(-buffer);
+    result += walk(-buffer);
     return result;
 }
 
 string print(int lenght)
 {
     string result = ".";
+    string come_back = "";
     for (int i = 0; i < abs(lenght); i++)
     {
         result += ">.";
+        come_back += "<";
     }
+    result += "\n";
+    result += come_back;
     return result;
 }
 
 string split(string what)
 {
     string result = "";
+    string come_back = "";
     char lastc;
     if (what[0] != '\"')
     {
@@ -117,10 +144,11 @@ string split(string what)
         if ((c != '\"' && lastc != '\\'))
         {
             result += setchar(c);
-            result += walk(1);
+            result += ">";
+            come_back += "<";
             result += "\n";
         }
         lastc = c;
     }
-    return result;
+    return result + come_back;
 }

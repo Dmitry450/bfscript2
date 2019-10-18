@@ -4,7 +4,9 @@
 #include "includes.hpp"
 #include "color.hpp"
 #include "functions.hpp"
+#include "pointer.hpp"
 
-string generate(vector<string> &tokens, int &i, map<string, string> &aliases, int &line_num, bool &error);
+string generate(vector<string> &tokens, int &i, map<string, string> &aliases, map<string, Pointer*> &pointers,
+                int &line_num, int &current_cell, bool &error);
 
 #endif
