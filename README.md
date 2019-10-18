@@ -32,13 +32,8 @@ Each command invocation ends with a semicolon.
 Please note that there are no name conflicts between pointers and aliases, as they stored differently
 
 For example:
-<code>
-  
-alias hw "Hello, World!"; # Create hw alias
-  
-pointer hw 1; # Create hw pointer
 
-split $ hw; # Split the string stored in ALIAS hw
-
-& hw = c; # Set the value of 'c' to the cell BY ADDRESS hw
-</code>
+<code>alias hw "Hello, World!"; # Create hw alias</code>
+<code>pointer hw 1; # Create hw pointer</code>
+<code>split $hw; # Split the string stored in ALIAS hw</code>
+<code>&hw = c; # Set the value of 'c' to the cell BY ADDRESS hw</code>
