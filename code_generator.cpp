@@ -4,7 +4,6 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
                 int &line_num, int &current_cell, bool &error)
 {
     string bfcode = "";
-    cout<<tokens[i]<<endl;
     if (tokens[i] == "newline")
     {
         ++line_num;
@@ -62,7 +61,6 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
             return bfcode;
         }
         ++i;
-        cout<<tokens[i]<<endl;
         if (tokens[i] == "assigment")
         {
             bfcode += go_to(current_cell, pointer->start);
