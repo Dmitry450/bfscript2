@@ -41,18 +41,6 @@ using a buffer located across t cells from the current
 
 <code>@name index sub value</code> - sub value of cell by address name\[i\]
 
-<code>print n</code> - print cell values from the current to the next through n cells
-
-<code>split v</code> - split string v into characters and distribute them in the following cells
-
-<code>alias name value</code> - create an alias with the name 'name' and the value 'value'
-
-<code>$name</code> - get the value from the alias name
-
-<code>pointer name n</code> - create a pointer to cell n
-
-<code>&name = c</code> - set the value of the cell at address name to 'c'
-
 <code>\#</code> - comment
 
 Each command invocation ends with a semicolon.
