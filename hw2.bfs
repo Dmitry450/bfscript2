@@ -1,7 +1,4 @@
-pointer lol 2;
-alias hw "Hello, World!";
-split $hw;
-print 13;
-&lol = c;
-walk 3;
-print 0;
+array arr 0 10;
+@arr 0 = H;
+@arr 1 = i;
+print 1;

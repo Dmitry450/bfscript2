@@ -27,6 +27,25 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
             return bfcode;
         }
     }
+    if (tokens[i] == "array")
+    {
+        ++i;
+        try
+        {
+            pointers[tokens[i]] = new Pointer("array", stoi(tokens[i+1]), stoi(tokens[i+1]) + stoi(tokens[i+2]));
+            ++i;
+            ++i;
+            return bfcode;
+        }
+        catch(invalid_argument err)
+        {
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument(s) for 'array'"
+                <<" (line "<<line_num<<")\n";
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+            error = true;
+            return bfcode;
+        }
+    }
     if (tokens[i] == "loadalias")
     {
         try
@@ -38,7 +57,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(out_of_range)
         {
             cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("name error: ")
-                <<"alias '"<<tokens[i]<<"' is not defined (line"<<line_num<<")\n";
+                <<"alias '"<<tokens[i]<<"' is not defined (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -55,7 +74,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(out_of_range)
         {
             cout<<BOLD_MSG("bfscript: code generator")<<ERROR_MSG("name error: ")<<"pointer '"<<tokens[i]
-                <<"' is not defined (line"<<line_num<<")\n";
+                <<"' is not defined (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -67,8 +86,128 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
             ++i;
             bfcode += setchar(tokens[i][0]);
             bfcode += go_to(pointer->start, current_cell);
-            ++i;
             return bfcode;
+        }
+        if (tokens[i] == "clear")
+        {
+            bfcode += go_to(current_cell, pointer->start);
+            ++i;
+            bfcode += "[-]\n";
+            bfcode += go_to(pointer->start, current_cell);
+            return bfcode;
+        }
+        if (tokens[i] == "add")
+        {
+            bfcode += go_to(current_cell, pointer->start);
+            ++i;
+            try
+            {
+                bfcode += change(stoi(tokens[i]));
+                bfcode += go_to(pointer->start, current_cell);
+                return bfcode;
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")
+                    <<"invalid argument for pointer's 'add' (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+    }
+    if (tokens[i] == "byarray")
+    {
+        ++i;
+        Pointer *pointer = nullptr;
+        try
+        {
+            pointer = pointers.at(tokens[i]);
+        }
+        catch(out_of_range)
+        {
+            cout<<BOLD_MSG("bfscript: code generator")<<ERROR_MSG("name error: ")<<"pointer '"<<tokens[i]
+                <<"' is not defined (line "<<line_num<<")\n";
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+            error = true;
+            return bfcode;
+        }
+        ++i;
+        int at;
+        try
+        {
+            at = pointer->start + stoi(tokens[i]);
+            if (at > pointer->end || at < pointer->start)
+            {
+                cout<<BOLD_MSG("bfscript: code generator")<<ERROR_MSG("out of range error: ")<<"array index out of range"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        catch(invalid_argument)
+        {
+            cout<<BOLD_MSG("bfscript: code generator")<<ERROR_MSG("argument error: ")<<"invalid argument for 'byarray'"
+                <<" (line "<<line_num<<")\n";
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+            error = true;
+            return bfcode;
+        }
+        ++i;
+        if (tokens[i] == "assigment")
+        {
+            bfcode += go_to(current_cell, at);
+            ++i;
+            bfcode += setchar(tokens[i][0]);
+            bfcode += go_to(at, current_cell);
+            return bfcode;
+        }
+        if (tokens[i] == "clear")
+        {
+            bfcode += go_to(current_cell, at);
+            ++i;
+            bfcode += "[-]\n";
+            bfcode += go_to(at, current_cell);
+            return bfcode;
+        }
+        if (tokens[i] == "add")
+        {
+            bfcode += go_to(current_cell, at);
+            ++i;
+            try
+            {
+                bfcode += change(stoi(tokens[i]));
+                bfcode += go_to(at, current_cell);
+                return bfcode;
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")
+                    <<"invalid argument for pointer's 'add' (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        if (tokens[i] == "sub")
+        {
+            bfcode += go_to(current_cell, at);
+            ++i;
+            try
+            {
+                bfcode += change(-stoi(tokens[i]));
+                bfcode += go_to(at, current_cell);
+                return bfcode;
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")
+                    <<"invalid argument for pointer's 'sub' (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
         }
     }
     if (tokens[i] == "alias")
@@ -106,7 +245,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(invalid_argument)
         {
             cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("argument error: ")
-                <<"invalid argument for 'walk' (line"<<line_num<<")\n";
+                <<"invalid argument for 'walk' (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -128,7 +267,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(invalid_argument)
         {
             cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("argument error: ")
-                <<"invalid argument for 'change' (line"<<line_num<<")\n";
+                <<"invalid argument for 'change' (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -150,7 +289,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(invalid_argument)
         {
             cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("argument error: ")
-                <<"invalid argument for 'mov' (line"<<line_num<<")\n";
+                <<"invalid argument for 'mov' (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -172,7 +311,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(invalid_argument)
         {
             cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("argument error: ")
-                <<"invalid argument for 'print' (line"<<line_num<<")\n";
+                <<"invalid argument for 'print' (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -211,7 +350,7 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         catch(invalid_argument)
         {
             cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("argument error: ")
-                <<"invalid argument(s) for 'copy' (line"<<line_num<<")\n";
+                <<"invalid argument(s) for 'copy' (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;

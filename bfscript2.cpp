@@ -159,6 +159,12 @@ int main(int argc, char** argv)
                     ident = "";
                     continue;
                 }
+                if (c == '@' && !in_string)
+                {
+                    tokens.push_back((string)"byarray");
+                    ident = "";
+                    continue;
+                }
                 if (!IS_SPECIAL_CHARACTER(c) || (in_string && !(c == '\"')))
                 {
                     ident.push_back(c);
@@ -201,7 +207,7 @@ int main(int argc, char** argv)
         tokens = tmp;
         cout<<BOLD_MSG("bfscript: lexer: ")<<GOOD_MSG("lexing analisys finished\n");
         int i = 0;
-        line_num = 0;
+        line_num = 1;
         bool error = false;
         for (i; i < tokens.size(); i++)
         {
@@ -211,7 +217,7 @@ int main(int argc, char** argv)
                 return -3;
             }
         }
-        cout<<BOLD_MSG("bfscript: code generator: ")<<GOOD_MSG("code generating finished")<<endl;
+        cout<<BOLD_MSG("bfscript: code generator: ")<<GOOD_MSG("code generating finished\n");
         ofstream ofile(flags.ofile);
         ofile<<bfcode;
     }

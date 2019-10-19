@@ -57,14 +57,14 @@ string go_to(int current_cell, int where)
     string result = "";
     if (current_cell < where)
     {
-        for (int i = current_cell; i <= where; i++)
+        for (int i = current_cell; i < where; i++)
         {
             result += ">";
         }
     }
     if (current_cell > where)
     {
-        for (int i = current_cell; i >= where; i--)
+        for (int i = current_cell; i > where; i--)
         {
             result += "<";
         }
