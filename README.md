@@ -31,8 +31,6 @@ using a buffer located across t cells from the current
 
 <code>&name sub value</code> - sub value of cell by address name
 
-<code>\#</code> - comment
-
 <code>array name start lenght</code> - make pointer to memory area
 
 <code>@name index = c</code> - set the value of the cell at address name\[i\] to 'c'
