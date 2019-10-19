@@ -43,8 +43,6 @@ using a buffer located across t cells from the current
 
 <code>@name index sub value</code> - sub value of cell by address name\[i\]
 
-using a buffer located across t cells from the current
-
 <code>print n</code> - print cell values from the current to the next through n cells
 
 <code>split v</code> - split string v into characters and distribute them in the following cells
