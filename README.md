@@ -1,27 +1,58 @@
 # bfscript2
-Low-level language, which translating in brainfuck
-
 The language syntax consists of the following commands:
 
-setchar c - sets the value in the current cell to c
+<code>setchar c</code> - sets the value in the current cell to c 
 
-walk n - go to n cells
+<code>walk n</code> - go to n cells
 
-change v - change the value in the current cell to v
+<code>change v</code> - change the value in the current cell to v (integer)
 
-mov n - move the value of the current cell to n cells
+<code>mov n</code> - move the value of the current cell to n cells
 
-copy n t - copy the value of the current cell to the cell through n cells using a buffer, 
-located on t cells from the current
+<code>copy n t</code> - copy the value of the current cell to the cell located n cells from the current
 
-print n - print cell values from the current to the next through n cells
+using a buffer located across t cells from the current
 
-split v - split string v into characters and distribute them in the following cells
+<code>print n</code> - print cell values from the current to the next through n cells
 
-alias name value - create a "variable" with the name "name" and value "value"
+<code>split v</code> - split string v into characters and distribute them in the following cells
 
-$name - get the value from a variable named name
+<code>alias name value</code> - create an alias with the name 'name' and the value 'value'
+
+<code>$name</code> - get the value from the alias name
+
+<code>pointer name n</code> - create a pointer to cell n
+
+<code>&name = c</code> - set the value of the cell at address name to 'c'
+
+<code>&name clear</code> - clear cell by address name
+
+<code>&name add value</code> - add value of cell by address name
+
+<code>&name sub value</code> - sub value of cell by address name
+
+<code>\#</code> - comment
+
+<code>array name start lenght</code> - make pointer to memory area
+
+<code>@name index = c</code> - set the value of the cell at address name\[i\] to 'c'
+
+<code>@name index clear</code> - clear cell by address name\[i\]
+
+<code>@name index add value</code> - add value of cell by address name\[i\]
+
+<code>@name index sub value</code> - sub value of cell by address name\[i\]
 
 Each command invocation ends with a semicolon.
 
-In fact, these are not exactly variables, since they are used only during translation
+Please note that there are no name conflicts between pointers and aliases, as they stored differently
+
+For example:
+
+<code>alias hw "Hello, World!"; # Create hw alias</code>
+
+<code>pointer hw 1; # Create hw pointer</code>
+
+<code>split $hw; # Split the string stored in ALIAS hw</code>
+
+<code>&hw = c; # Set the value of 'c' to the cell BY ADDRESS hw</code>
