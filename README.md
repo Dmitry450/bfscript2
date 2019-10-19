@@ -70,5 +70,3 @@ For example:
 <code>split $hw; # Split the string stored in ALIAS hw</code>
 
 <code>&hw = c; # Set the value of 'c' to the cell BY ADDRESS hw</code>
-
-<code>&hw = c; # Set the value of 'c' to the cell BY ADDRESS hw</code>
