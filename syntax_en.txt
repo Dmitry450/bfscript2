@@ -9,9 +9,17 @@ using a buffer located across t cells from the current
 print n - print cell values ​​from the current to the next through n cells
 split v - split string v into characters and distribute them in the following cells
 alias name value - create an alias with the name 'name' and the value 'value'
-$ name - get the value from the alias name
+$name - get the value from the alias name
 pointer name n - create a pointer to cell n
-& name = c - set the value of the cell at address name to 'c'
+&name = c - set the value of the cell at address name to 'c'
+&name clear - clear cell at address name
+&name add v - increase the value in the cell at the address name by v
+&name sub v - decrease the value in the cell at the address name by v
+array name n l - create a pointer to cells from n to n + l
+@name n = c - set the value of the cell at the address name[n] to 'c'
+@name n clear - clear cell at name[n]
+@name n add v - increase the value in the cell at the address name[n] by v
+@name n sub v - decrease the value in the cell at the address name[n] by v
 # - comment
 
 Each command invocation ends with a semicolon.
@@ -19,8 +27,8 @@ Each command invocation ends with a semicolon.
 Please note that there are no name conflicts between pointers and aliases, as they
 stored differently
 
-For example:
+eg:
 alias hw "Hello, World!"; # Create hw alias
 pointer hw 1; # Create hw pointer
-split $ hw; # Split the string stored in ALIAS hw
+split $ hw; # Split the string stored in PSEUDONYM hw
 & hw = c; # Set the value of 'c' to the cell BY ADDRESS hw
