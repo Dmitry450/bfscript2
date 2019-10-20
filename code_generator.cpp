@@ -115,6 +115,25 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
                 return bfcode;
             }
         }
+        if (tokens[i] == "sub")
+        {
+            bfcode += go_to(current_cell, pointer->start);
+            ++i;
+            try
+            {
+                bfcode += change(-stoi(tokens[i]));
+                bfcode += go_to(pointer->start, current_cell);
+                return bfcode;
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")
+                    <<"invalid argument for pointer's 'sub' (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
     }
     if (tokens[i] == "byarray")
     {
