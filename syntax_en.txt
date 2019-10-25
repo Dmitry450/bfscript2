@@ -20,6 +20,13 @@ array name n l - create a pointer to cells from n to n + l
 @name n clear - clear cell at name[n]
 @name n add v - increase the value in the cell at the address name[n] by v
 @name n sub v - decrease the value in the cell at the address name[n] by v
+putchar - output a character from the current cell
+read - read one character from standard input
+reads n - read characters from standard input and distribute them in cells from the current to the next through n cells
+sum * a * b * c - add the values of cells a and b, and add the result to cell c (in theory, you can use this
+function in the form of sum * a * b * a, but I'm not sure if this will work)
+sub * a * b * c - similar to sum, but here subtraction
+* a - access to the pointer
 # - comment
 
 Each command invocation ends with a semicolon.

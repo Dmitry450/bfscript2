@@ -1,4 +1,3 @@
-array arr 0 10;
-@arr 0 = H;
-@arr 1 = i;
-print 1;
+array arr 0 13;
+split "Hello, World!\n";
+print 14;

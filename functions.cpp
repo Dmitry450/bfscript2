@@ -73,6 +73,14 @@ string go_to(int current_cell, int where)
     return result;
 }
 
+string copyto(int current_cell, int whereto, int buffer)
+{
+    int copy_whereto, copy_buffer;
+    copy_whereto = whereto - current_cell;
+    copy_buffer = buffer - current_cell;
+    return copy(copy_whereto, copy_buffer);
+}
+
 string mov(int whereto)
 {
     string result = "";
@@ -119,6 +127,7 @@ string print(int lenght)
     }
     result += "\n";
     result += come_back;
+    result += "\n";
     return result;
 }
 
@@ -133,22 +142,118 @@ string split(string what)
     }
     for (char c: what)
     {
+        if (c == '\"' && lastc != '\\')
+        {
+            continue;
+        }
+        if (c == '\\' && lastc != '\\')
+        {
+            lastc = c;
+            continue;
+        }
         if (lastc == '\\' && c == 'n')
         {
             c = '\n';
         }
-        if (lastc == '\\' && c == 't')
+        else if (lastc == '\\' && c == 't')
         {
             c = '\t';
         }
-        if ((c != '\"' && lastc != '\\'))
-        {
-            result += setchar(c);
-            result += ">";
-            come_back += "<";
-            result += "\n";
-        }
+        result += setchar(c);
+        result += ">";
+        come_back += "<";
+        result += "\n";
         lastc = c;
     }
-    return result + come_back;
+    return result + come_back + "\n";
+}
+
+string sum (int p1, int p2, int resultpos, int current_cell)
+{
+    string result = "";
+
+    result += go_to(current_cell, 0);
+    result += "[-]"; // Clear buffer
+    result += go_to(0, current_cell);
+
+    result += go_to(current_cell, p1);
+    result += "[-";
+    result += go_to(p1, resultpos);
+    result += "+";
+    result += go_to(resultpos, 0);
+    result += "+";
+    result += go_to(0, p1);
+    result += "]"; // Move value from p1 to buffer and result cell
+
+    result += go_to(p1, 0);
+    result += "[-";
+    result += go_to(0, p1);
+    result += "+";
+    result += go_to(p1, 0);
+    result += "]"; // Return value from buffer to p1
+    
+    result += go_to(0, p2);
+    result += "[-";
+    result += go_to(p2, resultpos);
+    result += "+";
+    result += go_to(resultpos, 0);
+    result += "+";
+    result += go_to(0, p2);
+    result += "]"; // Move value from p2 to buffer and add to result cell
+
+    result += go_to(p2, 0);
+    result += "[-";
+    result += go_to(0, p2);
+    result += "+";
+    result += go_to(p2, 0);
+    result += "]"; // Return value from buffer to p2
+
+    result += go_to(0, current_cell); // Come back
+
+    return result;
+}
+
+string sub (int p1, int p2, int resultpos, int current_cell)
+{
+    string result = "";
+
+    result += go_to(current_cell, 0);
+    result += "[-]"; // Clear buffer
+    result += go_to(0, current_cell);
+
+    result += go_to(current_cell, p1);
+    result += "[-";
+    result += go_to(p1, resultpos);
+    result += "+";
+    result += go_to(resultpos, 0);
+    result += "+";
+    result += go_to(0, p1);
+    result += "]"; // Move value from p1 to buffer and result cell
+
+    result += go_to(p1, 0);
+    result += "[-";
+    result += go_to(0, p1);
+    result += "+";
+    result += go_to(p1, 0);
+    result += "]"; // Return value from buffer to p1
+    
+    result += go_to(0, p2);
+    result += "[-";
+    result += go_to(p2, resultpos);
+    result += "-";
+    result += go_to(resultpos, 0);
+    result += "+";
+    result += go_to(0, p2);
+    result += "]"; // Move value from p2 to buffer and sub from result cell
+
+    result += go_to(p2, 0);
+    result += "[-";
+    result += go_to(0, p2);
+    result += "+";
+    result += go_to(p2, 0);
+    result += "]"; // Return value from buffer to p2
+
+    result += go_to(0, current_cell); // Come back
+
+    return result;
 }

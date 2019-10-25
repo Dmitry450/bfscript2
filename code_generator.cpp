@@ -9,6 +9,246 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         ++line_num;
         return bfcode;
     }
+    if (tokens[i] == "read")
+    {
+        return ",";
+    }
+    if (tokens[i] == "reads")
+    {
+        string come_back;
+        int lenght;
+        try
+        {
+            ++i;
+            lenght = stoi(tokens[i]);
+        }
+        catch(invalid_argument)
+        {
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument for 'reads'"
+                <<" (line "<<line_num<<")\n";
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+            error = true;
+            return bfcode;
+        }
+        for (int i = 0; i < lenght; i++)
+        {
+            bfcode += ",>";
+            come_back += "<";
+        }
+        return bfcode + "\n" + come_back + "\n";
+    }
+    if (tokens[i] == "sub")
+    {
+        int p1, p2, resultpos;
+        ++i;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                p1 = pointers[tokens[i]]->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 1 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        else
+        {
+            try
+            {
+                ++i;
+                p1 = stoi(tokens[i]);
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 1 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        ++i;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                p2 = pointers[tokens[i]]->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 2 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        else
+        {
+            try
+            {
+                ++i;
+                p2 = stoi(tokens[i]);
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 2 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        ++i;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                resultpos = pointers[tokens[i]]->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 3 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        else
+        {
+            try
+            {
+                ++i;
+                resultpos = stoi(tokens[i]);
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 3 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        return sub(p1, p2, resultpos, current_cell);
+    }
+    if (tokens[i] == "sum")
+    {
+        int p1, p2, resultpos;
+        ++i;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                p1 = pointers[tokens[i]]->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 1 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        else
+        {
+            try
+            {
+                ++i;
+                p1 = stoi(tokens[i]);
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 1 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        ++i;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                p2 = pointers[tokens[i]]->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 2 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        else
+        {
+            try
+            {
+                ++i;
+                p2 = stoi(tokens[i]);
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 2 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        ++i;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                resultpos = pointers[tokens[i]]->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 3 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        else
+        {
+            try
+            {
+                ++i;
+                resultpos = stoi(tokens[i]);
+            }
+            catch (invalid_argument)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument 3 for 'sum'"
+                    <<" (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        return sum(p1, p2, resultpos, current_cell);
+    }
+    if (tokens[i] == "putchar")
+    {
+        return ".";
+    }
     if (tokens[i] == "pointer")
     {
         ++i;
@@ -20,8 +260,8 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         }
         catch(invalid_argument err)
         {
-            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"expected int argument 2 for 'pointer'"
-                <<" (line"<<line_num<<")\n";
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")<<"invalid argument for 'pointer'"
+                <<" (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;
             return bfcode;
@@ -229,6 +469,44 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
             }
         }
     }
+    if (tokens[i] == "goto")
+    {
+        ++i;
+        int at;
+        bool ploaded = false;
+        if (tokens[i] == "loadpointer")
+        {
+            try
+            {
+                ++i;
+                ploaded = true;
+                at = pointers.at(tokens[i])->start;
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator")<<ERROR_MSG("name error: ")<<"pointer '"<<tokens[i]
+                    <<"' is not defined (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
+        }
+        try
+        {
+            if (!ploaded) at = stoi(tokens[i]);
+            go_to(current_cell, at);
+            current_cell = stoi(tokens[i]);
+        }
+        catch(invalid_argument)
+        {
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")
+                <<"invalid argument for 'goto' (line "<<line_num<<")\n";
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+            error = true;
+            return bfcode;
+        }
+        
+    }
     if (tokens[i] == "alias")
     {
         ++i;
@@ -376,5 +654,8 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
         }
         return bfcode;
     }
-    cout<<WARNING_MSG("Warning: ")<<"unexpected token at line "<<line_num<<": "<<BOLD_MSG(tokens[i])<<endl;
+    cout<<ERROR_MSG("Error: ")<<"unexpected token at line "<<line_num<<": "<<BOLD_MSG(tokens[i])<<endl;
+    cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+    error = true;
+    return bfcode;
 }

@@ -165,6 +165,18 @@ int main(int argc, char** argv)
                     ident = "";
                     continue;
                 }
+                if (c == '*' && !in_string)
+                {
+                    tokens.push_back((string)"loadpointer");
+                    ident = "";
+                    continue;
+                }
+                if (c == ':' && !in_string)
+                {
+                    tokens.push_back((string)"loadarray");
+                    ident = "";
+                    continue;
+                }
                 if (!IS_SPECIAL_CHARACTER(c) || (in_string && !(c == '\"')))
                 {
                     ident.push_back(c);
