@@ -629,24 +629,47 @@ string generate(vector<string> &tokens, int &i, map<string, string> &aliases, ma
     if (tokens[i] == "copy")
     {
         ++i;
+        string arg1, arg2;
         if (tokens[i] == "loadalias")
         {
-            bfcode += generate(tokens, i, aliases, pointers, line_num, current_cell, error);
-            if (error) return bfcode;
+            ++i;
+            try
+            {
+                arg1 = aliases[tokens[i]];
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("name error: ")
+                    <<"alias '"<<tokens[i]<<"' is not defined (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
         }
         ++i;
         if (tokens[i] == "loadalias")
         {
-            bfcode += generate(tokens, i, aliases, pointers, line_num, current_cell, error);
-            if (error) return bfcode;
+            ++i;
+            try
+            {
+                arg1 = aliases[tokens[i]];
+            }
+            catch(out_of_range)
+            {
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("name error: ")
+                    <<"alias '"<<tokens[i]<<"' is not defined (line "<<line_num<<")\n";
+                cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
+                error = true;
+                return bfcode;
+            }
         }
         try
         {
-            bfcode += copy(stoi(tokens[i]), stoi(tokens[i+1]));
+            bfcode += copy(stoi(arg1), stoi(arg2));
         }
         catch(invalid_argument)
         {
-            cout<<BOLD_MSG("bfscript2: code generator: ")<<ERROR_MSG("argument error: ")
+            cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("argument error: ")
                 <<"invalid argument(s) for 'copy' (line "<<line_num<<")\n";
             cout<<BOLD_MSG("bfscript: code generator: ")<<ERROR_MSG("code generating terminated")<<endl;
             error = true;

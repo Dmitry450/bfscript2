@@ -29,7 +29,12 @@ sub * a * b * c - similar to sum, but here subtraction
 * a - access to the pointer
 # - comment
 
-Each command invocation ends with a semicolon.
+A program consists of calls to certain commands with their arguments. Between them should be separators:
+'(', ')', ',', ' ', and ';'. They can be used to improve code readability.
+For example:
+split "Hello world!\n";
+equals to
+split("Hello world!\n")
 
 Please note that there are no name conflicts between pointers and aliases, as they
 stored differently

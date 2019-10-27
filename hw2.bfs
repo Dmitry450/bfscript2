@@ -1,3 +1,4 @@
-array arr 0 13;
-split "Hello, World!\n";
-print 14;
+alias(hw, "Hello, World!\n")
+alias(lenght, 14)
+split($hw)
+print($lenght)

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define IS_SPECIAL_CHARACTER(c) (c == ' ' || c == '(' || c == ')' || c == ',' || c == '\"' || c == ';' || c == '\"')
+#define IS_SPECIAL_CHARACTER(c) (c == ' ' || c == '(' || c == ')' || c == ',' || c == '\"' || c == ';')
 
 struct Flags
 {
